@@ -33,3 +33,21 @@ C:\Data\Projects\GNC\eWallet Solution\eWallet.Business\bin\Debug\Newtonsoft.Json
 C:\Data\Projects\GNC\eWallet Solution\eWallet.Business\obj\Debug\eWallet.Business.csprojResolveAssemblyReference.cache
 C:\Data\Projects\GNC\eWallet Solution\eWallet.Business\obj\Debug\eWallet.Business.dll
 C:\Data\Projects\GNC\eWallet Solution\eWallet.Business\obj\Debug\eWallet.Business.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Business.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Business.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\CryptoAlgo.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Common.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Data.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Partner.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\MongoDB.Bson.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\MongoDB.Driver.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Common.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Data.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\eWallet.Partner.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\MongoDB.Bson.xml
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\MongoDB.Driver.xml
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\obj\Debug\eWallet.Business.csprojResolveAssemblyReference.cache
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\obj\Debug\eWallet.Business.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Business\obj\Debug\eWallet.Business.pdb

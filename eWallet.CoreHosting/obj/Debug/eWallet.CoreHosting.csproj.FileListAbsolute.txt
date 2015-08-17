@@ -49,3 +49,11 @@ C:\Data\Projects\GNC\eWallet Solution\eWallet.CoreHosting\obj\Debug\eWallet.Core
 C:\Data\Projects\GNC\eWallet Solution\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csproj.GenerateResource.Cache
 C:\Data\Projects\GNC\eWallet Solution\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.exe
 C:\Data\Projects\GNC\eWallet Solution\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.pdb
+C:\Users\Huy\eWallet\Core\eWallet.CoreHosting.exe.config
+C:\Users\Huy\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.exe
+C:\Users\Huy\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.pdb
+C:\Users\Huy\eWallet\Core\eWallet.CoreHosting.exe
+C:\Users\Huy\eWallet\Core\eWallet.CoreHosting.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csprojResolveAssemblyReference.cache
+C:\Users\Huy\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.ProjectInstaller.resources
+C:\Users\Huy\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csproj.GenerateResource.Cache
