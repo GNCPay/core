@@ -7,8 +7,8 @@
     <ProjectGuid>{CFB0D211-6861-4FE3-BE47-C58AB78095BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eWallet.SMS</RootNamespace>
-    <AssemblyName>eWallet.SMS</AssemblyName>
+    <RootNamespace>eWallet.Notification</RootNamespace>
+    <AssemblyName>eWallet.Notification</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
