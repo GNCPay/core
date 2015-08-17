@@ -1,0 +1,5 @@
+C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\bin\Release\eWallet.Common.dll
+C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\bin\Release\eWallet.Common.pdb
+C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\obj\Release\eWallet.Common.dll
+C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\obj\Release\eWallet.Common.pdb
+C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\obj\Release\eWallet.Common.csprojResolveAssemblyReference.cache

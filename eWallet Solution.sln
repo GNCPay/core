@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Common", "eWallet.Common\eWallet.Common.csproj", "{26BE5CF6-0772-46D2-9CE2-885F3971D01E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Data", "eWallet.Data\eWallet.Data.csproj", "{A9F7A312-8C3F-4563-B34B-F85094B728C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Notification", "eWallet.SMS\eWallet.Notification.csproj", "{CFB0D211-6861-4FE3-BE47-C58AB78095BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Business", "eWallet.Business\eWallet.Business.csproj", "{40BF7F6C-8351-4583-A2CE-740DE1EA319A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.CoreHosting", "eWallet.CoreHosting\eWallet.CoreHosting.csproj", "{AF457871-2C79-4625-95D2-2A21980C5EEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Partner", "eWallet.Partner\eWallet.Partner.csproj", "{02EFE69E-BADB-427B-BD82-5378F4B60AE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Portal", "eWallet.Portal\eWallet.Portal.csproj", "{18FF8DC5-3C0D-4B66-BDEB-12AEF6431A1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Admin", "eWallet.Admin\eWallet.Admin.csproj", "{A5E85DBE-F383-4A6A-8640-EB2490B2CD43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26BE5CF6-0772-46D2-9CE2-885F3971D01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26BE5CF6-0772-46D2-9CE2-885F3971D01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26BE5CF6-0772-46D2-9CE2-885F3971D01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26BE5CF6-0772-46D2-9CE2-885F3971D01E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F7A312-8C3F-4563-B34B-F85094B728C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F7A312-8C3F-4563-B34B-F85094B728C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F7A312-8C3F-4563-B34B-F85094B728C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F7A312-8C3F-4563-B34B-F85094B728C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFB0D211-6861-4FE3-BE47-C58AB78095BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFB0D211-6861-4FE3-BE47-C58AB78095BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB0D211-6861-4FE3-BE47-C58AB78095BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFB0D211-6861-4FE3-BE47-C58AB78095BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40BF7F6C-8351-4583-A2CE-740DE1EA319A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40BF7F6C-8351-4583-A2CE-740DE1EA319A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40BF7F6C-8351-4583-A2CE-740DE1EA319A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40BF7F6C-8351-4583-A2CE-740DE1EA319A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF457871-2C79-4625-95D2-2A21980C5EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF457871-2C79-4625-95D2-2A21980C5EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF457871-2C79-4625-95D2-2A21980C5EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF457871-2C79-4625-95D2-2A21980C5EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02EFE69E-BADB-427B-BD82-5378F4B60AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02EFE69E-BADB-427B-BD82-5378F4B60AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02EFE69E-BADB-427B-BD82-5378F4B60AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02EFE69E-BADB-427B-BD82-5378F4B60AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18FF8DC5-3C0D-4B66-BDEB-12AEF6431A1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18FF8DC5-3C0D-4B66-BDEB-12AEF6431A1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18FF8DC5-3C0D-4B66-BDEB-12AEF6431A1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18FF8DC5-3C0D-4B66-BDEB-12AEF6431A1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5E85DBE-F383-4A6A-8640-EB2490B2CD43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5E85DBE-F383-4A6A-8640-EB2490B2CD43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5E85DBE-F383-4A6A-8640-EB2490B2CD43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5E85DBE-F383-4A6A-8640-EB2490B2CD43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
