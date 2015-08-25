@@ -76,82 +76,11 @@ namespace eWallet.Business
 
         public ProileServices()
         {
-            Processing.Profile.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
+            Processing.Profile.DataHelper = new Data.MongoHelper(
+                   System.Configuration.ConfigurationSettings.AppSettings["PROFILE_DB_SERVER"],
+                   System.Configuration.ConfigurationSettings.AppSettings["PROFILE_DB_DATABASE"]
+                   );
         }
-
-        public ProileServices(dynamic config)
-        {
-            Processing.Profile.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
-        }
-
-        //public dynamic Get(dynamic request)
-        //{
-        //    dynamic resp = new Data.DynamicObj();
-        //    Process.ERROR error = Process.ERROR.SYSTEM_ERROR;
-        //    try
-        //    {
-        //        dynamic _profile = Process.Profile.Get(request.user_name);
-        //        if (_profile == null)
-        //        {
-        //            error = Process.ERROR.PROFILE_NOT_EXISTED;
-        //        }
-        //        else
-        //        {
-        //            resp.profile = _profile;
-        //            error = Process.ERROR.SUCCESS;
-        //        }
-        //    }
-        //    catch
-        //    {
-        //    }
-        //    resp.error_code = ((int)error).ToString().PadLeft(2, '0');
-        //    switch (error)
-        //    {
-        //        case eWallet.Business.Process.ERROR.SYSTEM_ERROR:
-        //            resp.error_message = "Có lỗi trong quá trình xử lý. Vui lòng thử lại sau";
-        //            break;
-        //        case eWallet.Business.Process.ERROR.SUCCESS:
-        //            resp.error_message = "Đăng ký thành công";
-        //            break;
-        //        case eWallet.Business.Process.ERROR.PROFILE_NOT_EXISTED:
-        //            resp.error_message = "Tài khoản chưa được đăng ký. Vui lòng kiểm tra lại";
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    return resp;
-        //}
-        //public dynamic Login(dynamic request)
-        //{
-        //    dynamic resp = new Data.DynamicObj();
-        //    Process.ERROR error = Process.ERROR.SYSTEM_ERROR;
-        //    try
-        //    {
-        //        error = Process.Profile.Login(request.id, request.password);
-        //    }
-        //    catch
-        //    {
-        //        error = Process.ERROR.SYSTEM_ERROR;
-        //    }
-        //    resp.error_code = ((int)error).ToString().PadLeft(2, '0');
-        //    switch (error)
-        //    {
-        //        case eWallet.Business.Process.ERROR.SYSTEM_ERROR:
-        //            resp.error_message = "Có lỗi trong quá trình xử lý. Vui lòng thử lại sau";
-        //            break;
-        //        case eWallet.Business.Process.ERROR.SUCCESS:
-        //            resp.profile = Process.Profile.Get(request.id);
-        //            resp.error_message = "Đăng ký thành công";
-        //            break;
-        //        case eWallet.Business.Process.ERROR.PROFILE_NOT_EXISTED:
-        //            resp.error_message = "Tài khoản chưa được đăng ký. Vui lòng kiểm tra lại";
-        //            break;
-        //        default:
-        //            break;
-        //    }
-
-        //    return resp;
-        //}
         public dynamic register(dynamic request)
         {
             long id = 0;
@@ -159,7 +88,7 @@ namespace eWallet.Business
             request.request.password = Guid.NewGuid().ToString().Split('-')[0];
             try
             {
-                error = Processing.Profile.Register(request.request.id, request.request.full_name, request.request.password, request.request.mobile, out id);
+                error = Processing.Profile.Register(request.request.id, request.request.full_name, request.request.mobile, out id);
             }
             catch
             {
@@ -185,7 +114,7 @@ namespace eWallet.Business
                     open_account_request.request.profile_id = id;
                     open_account_request.request.group = (int)101;
                     open_account_request.status = "NEW";
-                    data.Insert("core_request", open_account_request);
+                    data.Save("core_request", open_account_request);
 
                     //Gui sms
                     dynamic mt = new Data.DynamicObj();
@@ -198,7 +127,7 @@ namespace eWallet.Business
                     mt.request.msisdn = request.request.mobile;
                     mt.request.short_code = "6073";
                     mt.request.mo_seq = 0;
-                    mt.request.content = String.Format("Chuc mung ban {0} da dang ky thanh cong tai khoan GNC Payment voi ten dang nhap: {1}, mat khau: {2}", request.request.full_name, request.request.id,request.request.password);
+                    mt.request.content = String.Format("Chuc mung ban {0} da dang ky thanh cong tai khoan GNC Payment voi ten dang nhap {0}", request.request.full_name, request.request.id);
                     mt.request.command_code = "GNCPAY";
                     mt.status = "NEW";
                     DateTime dt = DateTime.Now;

@@ -19,7 +19,7 @@ namespace eWallet.Partner.Service
                 case "ECOM_FPTS":
                     return new FPTS();
                 default:
-                    return new EVN();
+                    return null;
             }
         }
     }

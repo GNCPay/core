@@ -10,12 +10,12 @@ namespace eWallet.Business
     {
         public BillingServices()
         {
-            Processing.Billing.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
+            Processing.Billing.DataHelper = new Data.MongoHelper(
+                   System.Configuration.ConfigurationSettings.AppSettings["BILLING_DB_SERVER"],
+                   System.Configuration.ConfigurationSettings.AppSettings["BILLING_DB_DATABASE"]
+                   );
         }
-        public BillingServices(dynamic config)
-        {
-            Processing.Billing.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
-        }
+       
         public override Data.DynamicObj Process(Data.DynamicObj request)
         {
             dynamic request_message = request;
