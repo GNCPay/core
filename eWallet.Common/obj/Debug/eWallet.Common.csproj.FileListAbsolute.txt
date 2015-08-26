@@ -8,3 +8,7 @@ C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\bin\Debug\eWallet.Common.pd
 C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\obj\Debug\eWallet.Common.dll
 C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\obj\Debug\eWallet.Common.pdb
 C:\Data\Projects\GNC\eWallet Solution\eWallet.Common\obj\Debug\eWallet.Common.csprojResolveAssemblyReference.cache
+C:\Users\Home\Documents\GitHub\core\eWallet.Common\bin\Debug\eWallet.Common.dll
+C:\Users\Home\Documents\GitHub\core\eWallet.Common\bin\Debug\eWallet.Common.pdb
+C:\Users\Home\Documents\GitHub\core\eWallet.Common\obj\Debug\eWallet.Common.dll
+C:\Users\Home\Documents\GitHub\core\eWallet.Common\obj\Debug\eWallet.Common.pdb
