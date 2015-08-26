@@ -102,6 +102,10 @@ namespace eWallet.Business
             tran_info.detail = request;
             tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN {1}, NHÀ CUNG CẤP {2}, DỊCH VỤ {3}";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.ref_id, request.provider,request.service);
+
+            ///Lay user profile
+            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
+
             ///
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
@@ -111,7 +115,7 @@ namespace eWallet.Business
             request_finance.function = "TOPUP";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -121,13 +125,15 @@ namespace eWallet.Business
             data.Insert("core_request", request_finance);
 
             dynamic response_finance = Business.BusinessFactory.GetBusiness("finance").GetResponse(request_finance._id);
+            request_message.error_code = response_finance.error_code;
+            request_message.error_message = response_finance.error_message;
 
             if (response_finance.error_code != "00")
             {
+                tran_info.error_code = response_finance.error_code;
+                tran_info.error_message = response_finance.error_message;
                 tran_info.status = "ERROR";
                 Processing.Transaction.DataHelper.Insert("transactions", tran_info);
-                request_message.error_code = response_finance.error_code;
-                request_message.error_message = response_finance.error_message;
                 return request_message;
             }
             ///
@@ -164,8 +170,10 @@ namespace eWallet.Business
                 else
                 {
                     response.url_redirect = "";
-                    request_message.error_code = "96";
+                    request_message.error_code = url_params[0];
                     request_message.error_message = "Khoi tao giao dich khong thanh cong";
+                    tran_info.error_code = request_message.error_code;
+                    tran_info.error_message = request_message.error_message;
                     tran_info.status = "ERROR";
                     Processing.Transaction.DataHelper.Insert("transactions", tran_info);
                     return request_message;
@@ -176,14 +184,15 @@ namespace eWallet.Business
             else
             {
                 tran_info.status = "WAITING";
+                tran_info.error_code = request_message.error_code;
+                tran_info.error_message = request_message.error_message;
                 Processing.Transaction.DataHelper.Insert("transactions", tran_info);
                 response.url_redirect = "payment/confirm?transaction_type={0}&trans_id={1}&amount={2}";
                 response.url_redirect = String.Format(response.url_redirect, tran_info.transaction_type, tran_info._id, tran_info.amount);
                 request_message.response = response;
             }
             //dynamic confirm_result = ConfirmTopup(tran_info);
-            request_message.error_code = response_finance.error_code;
-            request_message.error_message = response_finance.error_message;
+           
             return request_message;
         }
 
@@ -202,10 +211,14 @@ namespace eWallet.Business
             tran_info.service = request.service;
             tran_info.provider = request.provider;
             tran_info.amount = request.amount;
-            tran_info.detail = request;
+            tran_info.detail = request.receiver;
+            tran_info.detail.note = request.note;
             tran_info.note = "RÚT {0} VNĐ VÀO TÀI KHOẢN {1}, {2}, NH {3}";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.receiver.account_number, request.receiver.account_name, request.receiver.account_bank);
-            ///
+
+            ///Lay user profile
+            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
+
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
             request_finance._id = Guid.NewGuid().ToString();
@@ -214,7 +227,7 @@ namespace eWallet.Business
             request_finance.function = "cashout";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -261,7 +274,7 @@ namespace eWallet.Business
             tran_info.service = request.service;
             tran_info.provider = request.provider;
             tran_info.amount = request.amount;
-            tran_info.detail = request;
+            //tran_info.detail = request;
             tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN VÍ";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"));
             ///

@@ -114,7 +114,7 @@ namespace eWallet.Business
                     open_account_request.request.profile_id = id;
                     open_account_request.request.group = (int)101;
                     open_account_request.status = "NEW";
-                    data.Save("core_request", open_account_request);
+                    data.Insert("core_request", open_account_request);
 
                     //Gui sms
                     dynamic mt = new Data.DynamicObj();
