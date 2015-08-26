@@ -594,12 +594,10 @@ namespace eWallet.Business
         }
         public FinanceServices()
         {
-            Processing.Account.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
-        }
-
-        public FinanceServices(dynamic config)
-        {
-            Processing.Account.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
+            Processing.Account.DataHelper = new Data.MongoHelper(
+                   System.Configuration.ConfigurationSettings.AppSettings["FINANCE_DB_SERVER"],
+                   System.Configuration.ConfigurationSettings.AppSettings["FINANCE_DB_DATABASE"]
+                   );
         }
 
         public dynamic OpenAccount(dynamic request)

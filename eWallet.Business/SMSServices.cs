@@ -182,12 +182,10 @@ namespace eWallet.Business
 
         public SMSServices()
         {
-            Processing.SMS.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
-        }
-
-        public SMSServices(dynamic config)
-        {
-            Processing.SMS.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
+            Processing.SMS.DataHelper = new Data.MongoHelper(
+                   System.Configuration.ConfigurationSettings.AppSettings["SMS_DB_SERVER"],
+                   System.Configuration.ConfigurationSettings.AppSettings["SMS_DB_DATABASE"]
+                   );
         }
 
         public static HttpWebResponse SendSMS(dynamic sms_mt)

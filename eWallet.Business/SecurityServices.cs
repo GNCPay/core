@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace eWallet.Business
 {
-    public class SecurityServices: BaseBusiness
+    public class SecurityServices : BaseBusiness
     {
-         public SecurityServices()
+        public SecurityServices()
         {
-            Processing.Security.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_core", "ewallet_core");
+            Processing.Security.DataHelper = new Data.MongoHelper(
+                   System.Configuration.ConfigurationSettings.AppSettings["SECURITY_DB_SERVER"],
+                   System.Configuration.ConfigurationSettings.AppSettings["SECURITY_DB_DATABASE"]
+                   );
         }
 
-         public SecurityServices(dynamic config)
-        {
-            Processing.Security.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_core", "ewallet_core");
-        }
         public override Data.DynamicObj Process(Data.DynamicObj request)
         {
             dynamic request_message = request;
@@ -67,24 +66,24 @@ namespace eWallet.Business
             request_message.response.otp = Processing.Security.GenOTP(request_message.request.user_id);
 
             dynamic send_sms = new Data.DynamicObj();
-    //        "_id" : ObjectId("55790b0317480f1e846d31e9"),
-    //"system" : "core_sms",
-    //"module" : "sms",
-    //"type" : "one_way",
-    //"function" : "mt",
-    //"request" : {
-    //    "_id" : NumberLong(3),
-    //    "msisdn" : "0909989986",
-    //    "short_code" : "6073",
-    //    "mo_seq" : 1,
-    //    "content" : "So dien thoai nay da dang ky tai khoan GNC Payment",
-    //    "command_code" : "GNCPAY"
-    //},
-    //"status" : "WAITING",
-    //"system_created_time" : "20150611111355",
-    //"system_created_date" : "20150611",
-    //"system_last_updated_time" : "20150611111357",
-    //"system_last_updated_date" : "20150611"
+            //        "_id" : ObjectId("55790b0317480f1e846d31e9"),
+            //"system" : "core_sms",
+            //"module" : "sms",
+            //"type" : "one_way",
+            //"function" : "mt",
+            //"request" : {
+            //    "_id" : NumberLong(3),
+            //    "msisdn" : "0909989986",
+            //    "short_code" : "6073",
+            //    "mo_seq" : 1,
+            //    "content" : "So dien thoai nay da dang ky tai khoan GNC Payment",
+            //    "command_code" : "GNCPAY"
+            //},
+            //"status" : "WAITING",
+            //"system_created_time" : "20150611111355",
+            //"system_created_date" : "20150611",
+            //"system_last_updated_time" : "20150611111357",
+            //"system_last_updated_date" : "20150611"
             try
             {
                 send_sms._id = Guid.NewGuid().ToString();

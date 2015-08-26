@@ -11,12 +11,10 @@ namespace eWallet.Business
     {
         public TransactionService()
         {
-            Processing.Transaction.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
-        }
-
-        public TransactionService(dynamic config)
-        {
-            Processing.Transaction.DataHelper = new Data.MongoHelper("mongodb://127.0.0.1:27017/ewallet_business", "ewallet_business");
+            Processing.Transaction.DataHelper = new Data.MongoHelper(
+                   System.Configuration.ConfigurationSettings.AppSettings["TRANSACTION_DB_SERVER"],
+                   System.Configuration.ConfigurationSettings.AppSettings["TRANSACTION_DB_DATABASE"]
+                   );
         }
         public override Data.DynamicObj Process(Data.DynamicObj request)
         {
@@ -94,7 +92,7 @@ namespace eWallet.Business
             dynamic tran_info = new Data.DynamicObj();
             tran_info.transaction_type = "TOPUP";
             tran_info._id = Guid.NewGuid().ToString();// request.user_id
-            tran_info.ref_id = request.profile.ToString();
+            tran_info.ref_id = request.ref_id.ToString();
             tran_info.created_by = request.profile;
             tran_info.channel = request.channel.ToUpper();
             tran_info.payment_provider = request.payment_provider;
@@ -102,8 +100,12 @@ namespace eWallet.Business
             tran_info.provider = request.provider;
             tran_info.amount = request.amount;
             tran_info.detail = request;
-            tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN {1}, NHÀ CUNG CẤP {1}, DỊCH VỤ {2}";
-            tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.provider,request.service);
+            tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN {1}, NHÀ CUNG CẤP {2}, DỊCH VỤ {3}";
+            tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.ref_id, request.provider,request.service);
+
+            ///Lay user profile
+            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
+
             ///
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
@@ -113,7 +115,7 @@ namespace eWallet.Business
             request_finance.function = "TOPUP";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -123,13 +125,15 @@ namespace eWallet.Business
             data.Insert("core_request", request_finance);
 
             dynamic response_finance = Business.BusinessFactory.GetBusiness("finance").GetResponse(request_finance._id);
+            request_message.error_code = response_finance.error_code;
+            request_message.error_message = response_finance.error_message;
 
             if (response_finance.error_code != "00")
             {
+                tran_info.error_code = response_finance.error_code;
+                tran_info.error_message = response_finance.error_message;
                 tran_info.status = "ERROR";
                 Processing.Transaction.DataHelper.Insert("transactions", tran_info);
-                request_message.error_code = response_finance.error_code;
-                request_message.error_message = response_finance.error_message;
                 return request_message;
             }
             ///
@@ -166,8 +170,10 @@ namespace eWallet.Business
                 else
                 {
                     response.url_redirect = "";
-                    request_message.error_code = "96";
+                    request_message.error_code = url_params[0];
                     request_message.error_message = "Khoi tao giao dich khong thanh cong";
+                    tran_info.error_code = request_message.error_code;
+                    tran_info.error_message = request_message.error_message;
                     tran_info.status = "ERROR";
                     Processing.Transaction.DataHelper.Insert("transactions", tran_info);
                     return request_message;
@@ -178,14 +184,15 @@ namespace eWallet.Business
             else
             {
                 tran_info.status = "WAITING";
+                tran_info.error_code = request_message.error_code;
+                tran_info.error_message = request_message.error_message;
                 Processing.Transaction.DataHelper.Insert("transactions", tran_info);
                 response.url_redirect = "payment/confirm?transaction_type={0}&trans_id={1}&amount={2}";
                 response.url_redirect = String.Format(response.url_redirect, tran_info.transaction_type, tran_info._id, tran_info.amount);
                 request_message.response = response;
             }
             //dynamic confirm_result = ConfirmTopup(tran_info);
-            request_message.error_code = response_finance.error_code;
-            request_message.error_message = response_finance.error_message;
+           
             return request_message;
         }
 
@@ -204,10 +211,14 @@ namespace eWallet.Business
             tran_info.service = request.service;
             tran_info.provider = request.provider;
             tran_info.amount = request.amount;
-            tran_info.detail = request;
+            tran_info.detail = request.receiver;
+            tran_info.detail.note = request.note;
             tran_info.note = "RÚT {0} VNĐ VÀO TÀI KHOẢN {1}, {2}, NH {3}";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.receiver.account_number, request.receiver.account_name, request.receiver.account_bank);
-            ///
+
+            ///Lay user profile
+            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
+
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
             request_finance._id = Guid.NewGuid().ToString();
@@ -216,7 +227,7 @@ namespace eWallet.Business
             request_finance.function = "cashout";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -263,7 +274,7 @@ namespace eWallet.Business
             tran_info.service = request.service;
             tran_info.provider = request.provider;
             tran_info.amount = request.amount;
-            tran_info.detail = request;
+            //tran_info.detail = request;
             tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN VÍ";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"));
             ///
@@ -1002,43 +1013,27 @@ namespace eWallet.Business
                 request_message.error_code = "90";
                 request_message.error_message = "Invalid transaction";
             }
-            //dynamic response = null;
-            //switch (service)
-            //{
-            //    case "deposit":
-            //        response = ConfirmDeposit(tran_info);
-            //        request_message.error_code = response.error_code;
-            //        request_message.error_message = response.error_message;
-            //        break;
-            //    case "withdraw":
-            //        response = ConfirmWithdraw(tran_info);
-            //        request_message.error_code = response.error_code;
-            //        request_message.error_message = response.error_message;
-            //        break;
-            //    case "transfer":
-            //        dynamic transfer_response = ConfirmTransfer(tran_info);
-            //        request_message.error_code = transfer_response.error_code;
-            //        request_message.error_message = transfer_response.error_message;
-            //        break;
-            //    default:
-            //        request_message.error_code = "02";
-            //        request_message.error_message = "Invalid service";
-            //        break;
-            //}
-
-            dynamic confirm_response = ConfirmTransaction(tran_info);
-            request_message.error_code = confirm_response.error_code;
-            request_message.error_message = confirm_response.error_message;
-            request_message.response = new Data.DynamicObj();
-            if(tran_info.provider=="BIGP")
+            else if (tran_info.status != "WAITING")
             {
-                if (request_message.error_code == "00")
-                {
-                    request_message.response.url_redirect = "";
-                }
-                else
-                    request_message.response.url_redirect = "";
+                request_message.error_code = "91";
+                request_message.error_message = "Giao dịch đã được xử lý";
             }
+            else
+            {
+                dynamic confirm_response = ConfirmTransaction(tran_info);
+                request_message.error_code = confirm_response.error_code;
+                request_message.error_message = confirm_response.error_message;
+            }
+            //request_message.response = new Data.DynamicObj();
+            //if(tran_info.provider=="BIGP")
+            //{
+            //    if (request_message.error_code == "00")
+            //    {
+            //        request_message.response.url_redirect = "";
+            //    }
+            //    else
+            //        request_message.response.url_redirect = "";
+            //}
             return request_message;
         }
 
@@ -1070,6 +1065,17 @@ namespace eWallet.Business
             }
 
             tran_info.status = (request_message.error_code == "00") ? "COMPLETED" : "ERROR";
+
+            //Neu giao dich can ke toan thuc hien
+            if (tran_info.payment_provider == "GNCA")
+            {
+                dynamic gnc_finance_request = tran_info.detail;
+                gnc_finance_request._id = Guid.NewGuid().ToString();
+                gnc_finance_request.transaction_ref = tran_info._id;
+                gnc_finance_request.type = tran_info.transaction_type;
+                gnc_finance_request.status = "NEW";
+                Processing.Transaction.DataHelper.Save("gnc_finance_request", gnc_finance_request);
+            }
             tran_info.error_message = request_message.error_message;
             Processing.Transaction.DataHelper.Save("transactions", tran_info);
             return request_message;

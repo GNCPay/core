@@ -33,7 +33,7 @@ namespace eWallet.Business.Processing
             result = result | (seq_id);
             return result.ToString();
         }
-        public static ERROR Register(string user_name, string full_name, string password, string mobile, out long id)
+        public static ERROR Register(string user_name, string full_name, string mobile, out long id)
         {
             id = 0;
             try
@@ -48,7 +48,7 @@ namespace eWallet.Business.Processing
 
                 dynamic profile = new Data.DynamicObj();
                 profile.full_name = full_name;
-                profile.password = Common.Security.GenPasswordHash(user_name, password);
+                //profile.password = Common.Security.GenPasswordHash(user_name, password);
                 string _prefix = DateTime.Today.ToString("yy") + DateTime.Today.DayOfYear.ToString().PadLeft(3,'0');
                 id = long.Parse(String.Concat(_prefix,DataHelper.GetNextSquence("account_" + _prefix).ToString().PadLeft(5, '0')));
                 profile._id = id;
