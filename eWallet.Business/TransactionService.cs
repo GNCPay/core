@@ -274,10 +274,11 @@ namespace eWallet.Business
             tran_info.service = request.service;
             tran_info.provider = request.provider;
             tran_info.amount = request.amount;
-            //tran_info.detail = request;
+            tran_info.detail = request;
             tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN VÍ";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"));
-            ///
+
+            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
             request_finance._id = Guid.NewGuid().ToString();
@@ -286,7 +287,7 @@ namespace eWallet.Business
             request_finance.function = "cashin";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            request_finance.request.profiles = new long[] { profile._id};
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -539,9 +540,9 @@ namespace eWallet.Business
                 request_message.error_code = finance_transaction_result.error_code;
                 request_message.error_message = finance_transaction_result.error_message;
             }
-            tran_info.status = (request_message.error_code == "00") ? "COMPLETED" : "ERROR";
+            tran_info.status = (request_message.error_code == "00") ? "CANCELED" : "ERROR";
             tran_info.error_message = request_message.error_message;
-            Processing.Transaction.DataHelper.Insert("transactions", tran_info);
+            Processing.Transaction.DataHelper.Save("transactions", tran_info);
             return request_message;
         }
 
@@ -1074,7 +1075,7 @@ namespace eWallet.Business
                 gnc_finance_request.transaction_ref = tran_info._id;
                 gnc_finance_request.type = tran_info.transaction_type;
                 gnc_finance_request.status = "NEW";
-                Processing.Transaction.DataHelper.Save("gnc_finance_request", gnc_finance_request);
+                Processing.Transaction.DataHelper.Save("operation_request", gnc_finance_request);
             }
             tran_info.error_message = request_message.error_message;
             Processing.Transaction.DataHelper.Save("transactions", tran_info);

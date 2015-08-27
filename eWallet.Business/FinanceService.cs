@@ -217,7 +217,7 @@ namespace eWallet.Business
                 return request_message;
             }
 
-            master_trans.status = "COMPLETED";
+            master_trans.status = "CANCELED";
             Processing.Account.DataHelper.Save("finance_transaction", master_trans);
 
             dynamic[] detail_trans = Processing.Account.DataHelper.List("finance_transaction_detail", Query.EQ("parent", master_trans._id));
@@ -229,7 +229,7 @@ namespace eWallet.Business
                 else balance = Processing.Account.CancelCreditWithBlocked(detail.account, detail.amount);
                 if (balance > 0)
                 {
-                    detail.status = "COMPLETED";
+                    detail.status = "CANCELED";
                     Processing.Account.DataHelper.Save("finance_transaction_detail", detail);
                 }
             }
