@@ -45,7 +45,7 @@ namespace eWallet.CoreHosting
                 }
                 while (true)
                 {
-                    Thread.Sleep(10000);
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -55,7 +55,8 @@ namespace eWallet.CoreHosting
 
         protected override void OnStart(string[] args)
         {
-            ManualStart();
+            Thread thread = new Thread(new ThreadStart(ManualStart));
+            thread.Start();
         }
 
         protected override void OnStop()

@@ -14,20 +14,20 @@ namespace eWallet.CoreHosting
         /// </summary>
         static void Main()
         {
-            //ServiceBase[] ServicesToRun;
-            //ServicesToRun = new ServiceBase[] 
-            //{ 
-            //    new CoreHosting() 
-            //};
-            //ServiceBase.Run(ServicesToRun);
+            ServiceBase[] ServicesToRun;
+            ServicesToRun = new ServiceBase[] 
+            { 
+                new CoreHosting() 
+            };
+            ServiceBase.Run(ServicesToRun);
             //try
             //{
             //    eWallet.Notification.SMS sms = new Notification.SMS();
             //    sms.ManualStart();
             //}
-            //catch {}
-            CoreHosting core = new CoreHosting();
-            core.ManualStart();
+            //catch { }
+            //CoreHosting core = new CoreHosting();
+            //core.ManualStart();
 
         }
     }

@@ -65,3 +65,5 @@ C:\Users\Home\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHo
 C:\Users\Home\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csproj.GenerateResource.Cache
 C:\Users\Home\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.exe
 C:\Users\Home\Documents\GitHub\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.pdb
+C:\Data\Working\Source Codes\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.exe
+C:\Data\Working\Source Codes\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.pdb

@@ -34,9 +34,6 @@ C:\Data\Projects\GNC\eWallet Solution\eWallet.SMS\obj\Debug\eWallet.SMS.ProjectI
 C:\Data\Projects\GNC\eWallet Solution\eWallet.SMS\obj\Debug\eWallet.Notification.csproj.GenerateResource.Cache
 C:\Data\Projects\GNC\eWallet Solution\eWallet.SMS\obj\Debug\eWallet.SMS.dll
 C:\Data\Projects\GNC\eWallet Solution\eWallet.SMS\obj\Debug\eWallet.SMS.pdb
-C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.SMS.dll.config
-C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.SMS.dll
-C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.SMS.pdb
 C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Common.dll
 C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Data.dll
 C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\MongoDB.Bson.dll
@@ -50,8 +47,6 @@ C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.Notification.csprojResolveAssemblyReference.cache
 C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.SMS.ProjectInstaller.resources
 C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.Notification.csproj.GenerateResource.Cache
-C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.SMS.dll
-C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.SMS.pdb
 C:\Users\Home\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Notification.dll.config
 C:\Users\Home\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Notification.dll
 C:\Users\Home\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Notification.pdb
@@ -70,3 +65,8 @@ C:\Users\Home\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.SMS.ProjectIns
 C:\Users\Home\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.Notification.csproj.GenerateResource.Cache
 C:\Users\Home\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.Notification.dll
 C:\Users\Home\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.Notification.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Notification.dll.config
+C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Notification.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\bin\Debug\eWallet.Notification.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.Notification.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.SMS\obj\Debug\eWallet.Notification.pdb

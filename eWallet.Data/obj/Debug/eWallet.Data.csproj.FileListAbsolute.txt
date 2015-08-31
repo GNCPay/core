@@ -34,3 +34,15 @@ C:\Users\Home\Documents\GitHub\core\eWallet.Data\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Home\Documents\GitHub\core\eWallet.Data\obj\Debug\eWallet.Data.csprojResolveAssemblyReference.cache
 C:\Users\Home\Documents\GitHub\core\eWallet.Data\obj\Debug\eWallet.Data.dll
 C:\Users\Home\Documents\GitHub\core\eWallet.Data\obj\Debug\eWallet.Data.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\eWallet.Data.dll.config
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\eWallet.Data.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\eWallet.Data.pdb
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\MongoDB.Bson.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\MongoDB.Driver.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\MongoDB.Bson.xml
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\MongoDB.Driver.xml
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\obj\Debug\eWallet.Data.csprojResolveAssemblyReference.cache
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\obj\Debug\eWallet.Data.dll
+C:\Users\Huy\Documents\GitHub\core\eWallet.Data\obj\Debug\eWallet.Data.pdb
