@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eWallet.Business
 {
-    public class BillingServices: BaseBusiness
+    public class BillingServices : BaseBusiness
     {
         public BillingServices()
         {
@@ -15,7 +15,7 @@ namespace eWallet.Business
                    System.Configuration.ConfigurationSettings.AppSettings["BILLING_DB_DATABASE"]
                    );
         }
-       
+
         public override Data.DynamicObj Process(Data.DynamicObj request)
         {
             dynamic request_message = request;
@@ -26,6 +26,9 @@ namespace eWallet.Business
             {
                 case "check_bill":
                     request_message = CheckBill(request_message);
+                    break;
+                case "pay_bill":
+                    request_message = PayBill(request_message);
                     break;
                 default:
                     request_message.error_code = "01";
@@ -57,7 +60,22 @@ namespace eWallet.Business
             return request_message;
         }
 
-       
+        private dynamic PayBill(dynamic request_message)
+        {
+            dynamic request = request_message.request;
+            Partner.Service.IServiceProvider partner = Partner.Service.ServiceProvider.GetProvider(request.provider);
+            if (partner == null)
+            {
+                request_message.error_code = "02";
+                request_message.error_message = "Unsupported or invalid provider";
+                return request_message;
+            }
+            dynamic bill_info = partner.payment_bill(request.service, request.bill_code,request.amount, request.ref_id);
+            request_message.response = bill_info;
+            request_message.error_code = (bill_info.status == "PAID") ? "00" : "96";
+            request_message.error_message = (bill_info.status == "PAID")? "Success" : "Error";
+            return request_message;
+        }
 
         public dynamic UpdateTransaction(dynamic trans_info)
         {
@@ -79,7 +97,7 @@ namespace eWallet.Business
 
         public dynamic GetRequest(dynamic request)
         {
-            
+
             dynamic resp = new Data.DynamicObj();
             resp.error_code = "00";
             resp.error_message = "Khoi tao giao dich thanh cong";
@@ -115,7 +133,7 @@ namespace eWallet.Business
             tran_info.shipping_fee = "0";
             tran_info.tax = "0";
             string _id = DateTime.Now.ToString("HHmmss");// new Guid().ToString("");
-           
+
             resp.tran_id = _id;
             tran_info._id = _id;
             tran_info.provider = tran_info.bill_info.provider.code;
@@ -126,7 +144,7 @@ namespace eWallet.Business
             if (tran_info.payment_method == "card")
             {
                 Partner.Bank.BankNet bankNet = new Partner.Bank.BankNet();
-               
+
                 string banknet_response = bankNet.SendOrder(
                     tran_info.service,
                     tran_info._id,
@@ -138,20 +156,21 @@ namespace eWallet.Business
                     String.Empty
                     );
                 string[] url_params = banknet_response.Split('|');
-                if (url_params[0] == "010"){
+                if (url_params[0] == "010")
+                {
                     url_params[2] = url_params[2].Substring(0, int.Parse(url_params[1]));
                     resp.url_redirect = url_params[2].Substring(0, int.Parse(url_params[1]));
                     Processing.Billing.UpdateBankTransaction(_id, resp.url_redirect.Split('=')[1], "PROCESSING");
                     resp.error_code = "00";
                     resp.error_message = "Khoi tao giao dich thanh cong";
-                    
+
                 }
                 else
                 {
                     resp.error_code = "96";
                     resp.error_message = "Khoi tao giao dich khong thanh cong";
                 }
-                
+
             }
             else if (tran_info.payment_method == "account")
             {

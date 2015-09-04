@@ -928,21 +928,22 @@ namespace eWallet.Business
 
         private dynamic ConfirmPayBill(dynamic _lastestTrans)
         {
-            dynamic response = new Data.DynamicObj();
-            response.response = new Data.DynamicObj();
-            if (_lastestTrans.status == "WAITING")
-            {
-                _lastestTrans.status = "DONE";
-                Processing.Transaction.DataHelper.Save("transactions", _lastestTrans);
-                response.response.url_redirect = "http://bigpay.vn/Services/PayFlow.asmx/Confirm?username=payflow&password=payflow@gncmedia&trans_id=" + _lastestTrans.ref_id;
-            }
-            else
-            {
-                response.error_code = "01";
-                response.error_message = "Giao dich da duoc xu ly truoc do. Vui long kiem tra lai";
-                response.response.url_redirect = "http://bigpay.vn/Services/PayFlow.asmx/Cancel?username=payflow&password=payflow@gncmedia&trans_id=" + _lastestTrans.ref_id;
-            }
-            return response;
+            dynamic request_otp = new Data.DynamicObj();
+            request_otp._id = Guid.NewGuid().ToString();
+            request_otp.system = "core_transaction";
+            request_otp.module = "billing";
+            request_otp.function = "pay_bill";
+            request_otp.type = "two_way";
+            request_otp.request = new Data.DynamicObj();
+            request_otp.request.service = _lastestTrans.service;
+            request_otp.request.provider = _lastestTrans.provider;
+            request_otp.request.bill_code = _lastestTrans.ref_id;
+            request_otp.request.amount = _lastestTrans.amount;
+            request_otp.request.ref_id = _lastestTrans._id;
+            request_otp.status = "NEW";
+            data.Insert("core_request", request_otp);
+
+            return BusinessFactory.GetBusiness("billing").GetResponse(request_otp._id);
         }
 
         private dynamic Transfer(dynamic request_message)
@@ -1158,7 +1159,26 @@ namespace eWallet.Business
         {
             dynamic request_message = new Data.DynamicObj();
             //dynamic trans = Processing.Transaction.MakeTopup(request);
-
+            string trans_type = tran_info.transaction_type.ToString().ToLower();
+            dynamic confirm_type = new Data.DynamicObj();
+            switch(trans_type)
+            {
+                case "payment":
+                    confirm_type = ConfirmPayBill(tran_info);
+                    break;
+                default:
+                    break;
+            }
+            if(confirm_type.error_code != "00")
+            {
+                request_message.error_code = confirm_type.error_code;
+                request_message.error_message = "System Error. Please try again late!";
+                tran_info.status = "ERROR";
+                tran_info.error_message ="PAYMENT PROVIDER ERROR: " + request_message.error_message;
+                Processing.Transaction.DataHelper.Save("transactions", tran_info);
+                return request_message;
+            }
+            
 
             //Neu giao dich can ke toan thuc hien
             if (tran_info.payment_provider == "GNCA")

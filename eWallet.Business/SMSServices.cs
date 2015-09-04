@@ -17,11 +17,17 @@ namespace eWallet.Business
             string _func = request_message.function;
             switch (_func)
             {
-                case "mo":
-                    request_message = MOSMS(request_message);
+                //case "mo":
+                //    request_message = MOSMS(request_message);
+                //    break;
+                //case "mt":
+                //    request_message = MTSMS(request_message);
+                //    break;
+                case "send":
+                    request_message = Send(request_message);
                     break;
-                case "mt":
-                    request_message = MTSMS(request_message);
+                case "receive":
+                    request_message = Receive(request_message);
                     break;
                 default:
                     request_message.error_code = "01";
@@ -34,6 +40,17 @@ namespace eWallet.Business
             data.Save("core_request", request_message);
 
             return request_message;
+        }
+
+        private dynamic Receive(dynamic request_message)
+        {
+            throw new NotImplementedException();
+        }
+
+        private dynamic Send(dynamic request_message)
+        {
+            dynamic sms = request_message.request;
+            return null;
         }
 
         /// <summary>
