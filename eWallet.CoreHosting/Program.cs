@@ -15,9 +15,9 @@ namespace eWallet.CoreHosting
         static void Main()
         {
             ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new CoreHosting() 
+            ServicesToRun = new ServiceBase[]
+            {
+                new CoreHosting()
             };
             ServiceBase.Run(ServicesToRun);
             //try

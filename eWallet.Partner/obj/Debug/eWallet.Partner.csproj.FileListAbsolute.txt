@@ -62,3 +62,19 @@ C:\Users\Home\Documents\GitHub\core\eWallet.Partner\bin\Debug\Newtonsoft.Json.xm
 C:\Users\Home\Documents\GitHub\core\eWallet.Partner\obj\Debug\eWallet.Partner.csprojResolveAssemblyReference.cache
 C:\Users\Home\Documents\GitHub\core\eWallet.Partner\obj\Debug\eWallet.Partner.dll
 C:\Users\Home\Documents\GitHub\core\eWallet.Partner\obj\Debug\eWallet.Partner.pdb
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\eWallet.Partner.dll.config
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\eWallet.Partner.dll
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\eWallet.Partner.pdb
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\eWallet.Common.dll
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\eWallet.Data.dll
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\MongoDB.Bson.dll
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\MongoDB.Driver.dll
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\Newtonsoft.Json.dll
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\eWallet.Common.pdb
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\eWallet.Data.pdb
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\MongoDB.Bson.xml
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\MongoDB.Driver.xml
+C:\Data\Working\Source Codes\core\eWallet.Partner\bin\Debug\Newtonsoft.Json.xml
+C:\Data\Working\Source Codes\core\eWallet.Partner\obj\Debug\eWallet.Partner.csprojResolveAssemblyReference.cache
+C:\Data\Working\Source Codes\core\eWallet.Partner\obj\Debug\eWallet.Partner.dll
+C:\Data\Working\Source Codes\core\eWallet.Partner\obj\Debug\eWallet.Partner.pdb

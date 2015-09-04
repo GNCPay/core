@@ -1161,15 +1161,17 @@ namespace eWallet.Business
             //dynamic trans = Processing.Transaction.MakeTopup(request);
             string trans_type = tran_info.transaction_type.ToString().ToLower();
             dynamic confirm_type = new Data.DynamicObj();
+            bool is_need_confirm_type = false;
             switch(trans_type)
             {
                 case "payment":
                     confirm_type = ConfirmPayBill(tran_info);
+                    is_need_confirm_type = true;
                     break;
                 default:
                     break;
             }
-            if(confirm_type.error_code != "00")
+            if(is_need_confirm_type && confirm_type.error_code != "00")
             {
                 request_message.error_code = confirm_type.error_code;
                 request_message.error_message = "System Error. Please try again late!";

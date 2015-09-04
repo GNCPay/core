@@ -12,11 +12,12 @@ namespace eWallet.Partner.Service
         {
             switch (code)
             {
-                case "ESSE_EVNHN":
-                    return new EVN();
-                case "ECOM_SENDO":
+                case "EVNHCM":
+                case "EVNHN":
+                    return new EVN(code);
+                case "SENDO":
                     return new SENDO();
-                case "ECOM_FPTS":
+                case "FPTS":
                     return new FPTS();
                 default:
                     return null;
@@ -26,5 +27,6 @@ namespace eWallet.Partner.Service
     public interface IServiceProvider
     {
         dynamic payment_check_bill(string service, string bill_code);
+        dynamic payment_bill(string service, string bill_code, long amount, string ref_id);
     }
 }

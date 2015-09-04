@@ -19,21 +19,25 @@ namespace eWallet.Business
         public override Data.DynamicObj Process(Data.DynamicObj request)
         {
             dynamic request_message = request;
+            try {
 
-
-            string _func = request_message.function;
-            switch (_func)
-            {
-                case "check_bill":
-                    request_message = CheckBill(request_message);
-                    break;
-                case "pay_bill":
-                    request_message = PayBill(request_message);
-                    break;
-                default:
-                    request_message.error_code = "01";
-                    request_message.error_message = "Unsupported or invalid function";
-                    break;
+                string _func = request_message.function;
+                switch (_func)
+                {
+                    case "check_bill":
+                        request_message = CheckBill(request_message);
+                        break;
+                    case "pay_bill":
+                        request_message = PayBill(request_message);
+                        break;
+                    default:
+                        request_message.error_code = "01";
+                        request_message.error_message = "Unsupported or invalid function";
+                        break;
+                }
+            }catch(Exception ex) {
+                request_message.error_code = "99";
+                request_message.error_message = ex.Message + "|" + ex.Source;
             }
 
 
