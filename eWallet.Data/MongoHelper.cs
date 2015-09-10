@@ -150,6 +150,13 @@ namespace eWallet.Data
             return SaveDocument(objectName, dyna.ToBsonDocument());
         }
 
+        //test
+        public bool SaveUpdate(string objectName, DynamicObj obj)
+        {
+            dynamic dyna = obj;
+            return SaveDocument(objectName, dyna.ToBsonDocument());
+        }
+
         private bool InsertDocument(string collectionName, BsonDocument document)
         {
             WriteConcernResult result = Database.GetCollection(collectionName).Insert(document);
