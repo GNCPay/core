@@ -44,5 +44,10 @@ namespace eWallet.Partner.Service
              }
             return bill;
         }
+
+        public dynamic payment_bill(string service, string bill_code, long amount, string ref_id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

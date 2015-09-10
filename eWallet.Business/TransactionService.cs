@@ -41,6 +41,9 @@ namespace eWallet.Business
                 case "confirm":
                     request_message = Confirm(request_message);
                     break;
+                case "operation_confirm":
+                    request_message = OperationConfirm(request_message);
+                    break;
                 case "cancel":
                     request_message = Cancel(request_message);
                     break;
@@ -101,11 +104,9 @@ namespace eWallet.Business
             tran_info.amount = request.amount;
             tran_info.detail = request;
             tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN {1}, NHÀ CUNG CẤP {2}, DỊCH VỤ {3}";
-            tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.ref_id, request.provider,request.service);
+            tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.ref_id, request.provider, request.service);
 
-            ///Lay user profile
-            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
-
+            
             ///
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
@@ -115,6 +116,7 @@ namespace eWallet.Business
             request_finance.function = "TOPUP";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
+            dynamic profile = Processing.Transaction.DataHelper.Get("profile", Query.EQ("user_name", request.profile));
             request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
@@ -192,7 +194,7 @@ namespace eWallet.Business
                 request_message.response = response;
             }
             //dynamic confirm_result = ConfirmTopup(tran_info);
-           
+
             return request_message;
         }
 
@@ -216,8 +218,7 @@ namespace eWallet.Business
             tran_info.note = "RÚT {0} VNĐ VÀO TÀI KHOẢN {1}, {2}, NH {3}";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"), request.receiver.account_number, request.receiver.account_name, request.receiver.account_bank);
 
-            ///Lay user profile
-            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
+            
 
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
@@ -227,6 +228,7 @@ namespace eWallet.Business
             request_finance.function = "cashout";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
+            dynamic profile = Processing.Transaction.DataHelper.Get("profile", Query.EQ("user_name", request.profile));
             request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
@@ -274,10 +276,12 @@ namespace eWallet.Business
             tran_info.service = request.service;
             tran_info.provider = request.provider;
             tran_info.amount = request.amount;
-            //tran_info.detail = request;
+            tran_info.detail = (request.sender == null)? new Data.DynamicObj():request.sender;
+            tran_info.detail.note = request.note;
             tran_info.note = "NỘP {0} VNĐ VÀO TÀI KHOẢN VÍ";
             tran_info.note = String.Format(tran_info.note, request.amount.ToString("N0"));
-            ///
+
+            dynamic profile = Business.Processing.Profile.Get(request.profile.ToString());
             /// Block tai khoan o day
             dynamic request_finance = new Data.DynamicObj();
             request_finance._id = Guid.NewGuid().ToString();
@@ -286,7 +290,7 @@ namespace eWallet.Business
             request_finance.function = "cashin";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -310,7 +314,7 @@ namespace eWallet.Business
             if (request.payment_provider == "BANKNET")
             {
                 Partner.Bank.BankNet bankNet = new Partner.Bank.BankNet();
-                string _url_return = "transaction_type="+ tran_info.transaction_type+"&channel=" + tran_info.channel + "&trans_id=" + tran_info._id + "&amount=" + tran_info.amount;
+                string _url_return = "transaction_type=" + tran_info.transaction_type + "&channel=" + tran_info.channel + "&trans_id=" + tran_info._id + "&amount=" + tran_info.amount;
                 string _seq = DateTime.Today.Year + DateTime.Today.DayOfYear.ToString().PadLeft(3, '0');
                 tran_info.bank_ref_id = Processing.Transaction.DataHelper.GetNextSquence("bank_ref_" + _seq).ToString().PadLeft(6, '0');
                 string banknet_response = bankNet.SendOrder(
@@ -373,7 +377,7 @@ namespace eWallet.Business
 
         private dynamic MakeRequest(dynamic request_message)
         {
-            string prefix = DateTime.Today.ToString("yy") + DateTime.Today.DayOfYear.ToString().PadLeft(3,'0');
+            string prefix = DateTime.Today.ToString("yy") + DateTime.Today.DayOfYear.ToString().PadLeft(3, '0');
             dynamic request = request_message.request;
             request._id = prefix + Processing.Transaction.DataHelper.GetNextSquence("payment_request_" + prefix).ToString().PadLeft(6, '0');
             request.status = "NEW";
@@ -402,7 +406,7 @@ namespace eWallet.Business
             tran_info.amount = request.amount;
             tran_info.detail = request;
             tran_info.note = "THANH TOÁN DỊCH VỤ {0}, NHÀ CUNG CẤP {1}, ĐƠN HÀNG {2}, SỐ TIỀN {3} VNĐ";
-            tran_info.note = String.Format(tran_info.note,request.service, request.provider, request.product_code, request.amount.ToString("N0"));
+            tran_info.note = String.Format(tran_info.note, request.service, request.provider, request.product_code, request.amount.ToString("N0"));
             response.trans_id = tran_info._id;
             response.amount = request.amount;
 
@@ -437,7 +441,7 @@ namespace eWallet.Business
                 }
                 else
                 {
-                    
+
                     request_message.error_code = "96";
                     request_message.error_message = "Khoi tao giao dich khong thanh cong";
                     tran_info.status = "ERROR";
@@ -457,7 +461,8 @@ namespace eWallet.Business
                 request_finance.function = "payment";
                 request_finance.type = "two_way";
                 request_finance.request = new Data.DynamicObj();
-                request_finance.request.profiles = new long[] { request.profile };
+                dynamic profile = Processing.Transaction.DataHelper.Get("profile", Query.EQ("user_name", request.profile));
+                request_finance.request.profiles = new long[] { profile._id };
                 request_finance.request.amount = tran_info.amount;
                 request_finance.request.business_transaction = tran_info._id;
                 request_finance.request.channel = tran_info.channel;
@@ -539,9 +544,9 @@ namespace eWallet.Business
                 request_message.error_code = finance_transaction_result.error_code;
                 request_message.error_message = finance_transaction_result.error_message;
             }
-            tran_info.status = (request_message.error_code == "00") ? "COMPLETED" : "ERROR";
+            tran_info.status = (request_message.error_code == "00") ? "CANCELED" : "ERROR";
             tran_info.error_message = request_message.error_message;
-            Processing.Transaction.DataHelper.Insert("transactions", tran_info);
+            Processing.Transaction.DataHelper.Save("transactions", tran_info);
             return request_message;
         }
 
@@ -561,7 +566,7 @@ namespace eWallet.Business
             tran_info.detail = request;
             tran_info.product = request.product;
             tran_info.note = "MUA {0}, SỐ TIỀN {1} VNĐ";
-            tran_info.note = String.Format(tran_info.note,request.product, request.amount.ToString("N0"));
+            tran_info.note = String.Format(tran_info.note, request.product, request.amount.ToString("N0"));
             tran_info.note = tran_info.note.ToUpper();
             response.trans_id = tran_info._id;
             response.amount = request.amount;
@@ -616,7 +621,8 @@ namespace eWallet.Business
                 request_finance.function = "purchase";
                 request_finance.type = "two_way";
                 request_finance.request = new Data.DynamicObj();
-                request_finance.request.profiles = new long[] { request.profile };
+                dynamic profile = Processing.Transaction.DataHelper.Get("profile", Query.EQ("user_name", request.profile));
+                request_finance.request.profiles = new long[] { profile._id };
                 request_finance.request.amount = tran_info.amount;
                 request_finance.request.business_transaction = tran_info._id;
                 request_finance.request.channel = tran_info.channel;
@@ -686,7 +692,8 @@ namespace eWallet.Business
             request_finance.function = "withdraw";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            dynamic profile = Processing.Transaction.DataHelper.Get("profile", Query.EQ("user_name", request.profile));
+            request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -742,7 +749,8 @@ namespace eWallet.Business
             request_finance.function = "deposit";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile };
+            dynamic profile = Processing.Transaction.DataHelper.Get("profile", Query.EQ("user_name", request.profile));
+            request_finance.request.profiles = new long[] { profile._id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -909,31 +917,33 @@ namespace eWallet.Business
             dynamic response_otp = BusinessFactory.GetBusiness("security").GetResponse(request_otp._id);
             if (response_otp.error_code == "00")
             {
-                  return Confirm(request_message);
-                    
+                return Confirm(request_message);
+
             }
-            else{
+            else
+            {
                 return response_otp;
             }
         }
 
         private dynamic ConfirmPayBill(dynamic _lastestTrans)
         {
-            dynamic response = new Data.DynamicObj();
-            response.response = new Data.DynamicObj();
-            if (_lastestTrans.status == "WAITING")
-            {
-                _lastestTrans.status = "DONE";
-                Processing.Transaction.DataHelper.Save("transactions", _lastestTrans);
-                response.response.url_redirect = "http://bigpay.vn/Services/PayFlow.asmx/Confirm?username=payflow&password=payflow@gncmedia&trans_id=" + _lastestTrans.ref_id;
-            }
-            else
-            {
-                response.error_code = "01";
-                response.error_message = "Giao dich da duoc xu ly truoc do. Vui long kiem tra lai";
-                response.response.url_redirect = "http://bigpay.vn/Services/PayFlow.asmx/Cancel?username=payflow&password=payflow@gncmedia&trans_id=" + _lastestTrans.ref_id;
-            }
-            return response;
+            dynamic request_otp = new Data.DynamicObj();
+            request_otp._id = Guid.NewGuid().ToString();
+            request_otp.system = "core_transaction";
+            request_otp.module = "billing";
+            request_otp.function = "pay_bill";
+            request_otp.type = "two_way";
+            request_otp.request = new Data.DynamicObj();
+            request_otp.request.service = _lastestTrans.service;
+            request_otp.request.provider = _lastestTrans.provider;
+            request_otp.request.bill_code = _lastestTrans.ref_id;
+            request_otp.request.amount = _lastestTrans.amount;
+            request_otp.request.ref_id = _lastestTrans._id;
+            request_otp.status = "NEW";
+            data.Insert("core_request", request_otp);
+
+            return BusinessFactory.GetBusiness("billing").GetResponse(request_otp._id);
         }
 
         private dynamic Transfer(dynamic request_message)
@@ -968,7 +978,8 @@ namespace eWallet.Business
             request_finance.function = "transfer";
             request_finance.type = "two_way";
             request_finance.request = new Data.DynamicObj();
-            request_finance.request.profiles = new long[] { request.profile, request.receiver.id };
+            dynamic profile = Processing.Transaction.DataHelper.Get("profile", Query.EQ("user_name", request.profile));
+            request_finance.request.profiles = new long[] { profile._id, request.receiver.id };
             request_finance.request.amount = tran_info.amount;
             request_finance.request.business_transaction = tran_info._id;
             request_finance.request.channel = tran_info.channel;
@@ -997,6 +1008,54 @@ namespace eWallet.Business
 
             tran_info.status = "WAITING";
             Processing.Transaction.DataHelper.Insert("transactions", tran_info);
+            return request_message;
+        }
+
+        private dynamic OperationConfirm(dynamic request_message)
+        {
+            dynamic request = request_message.request;
+            dynamic operation_request = Processing.Transaction.DataHelper.Get("operation_request", Query.EQ("_id", request.request_id));
+            operation_request.confirm = new Data.DynamicObj();
+            operation_request.confirm.type = request.confirm_type;
+            operation_request.confirm.note = request.confirm_note;
+            operation_request.confirm.confirm_by = request.user_id;
+            
+
+            if (operation_request.status != "NEW")
+            {
+                Processing.Transaction.DataHelper.Save("operation_request", operation_request);
+                request_message.error_code = "90";
+                request_message.error_message = "This request were processed. Not allow to confirm";
+                return request_message;
+            }
+
+            
+            
+            dynamic tran_info = Processing.Transaction.DataHelper.Get("transactions",
+                        Query.EQ("_id", operation_request.transaction_ref)
+                        );
+
+            if (tran_info.status != "PROCESSING")
+            {
+                request_message.error_code = "91";
+                request_message.error_message = "Not allow to confirm this transaction";
+                operation_request.status = "FAILED";
+                operation_request.confirm.note += " (" + request_message.error_message + ")";
+                Processing.Transaction.DataHelper.Save("operation_request", operation_request);
+            }
+            else
+            {
+                operation_request.status = request.confirm_type;
+                dynamic confirm_response = OperationConfirmTransaction(request.confirm_type, tran_info);
+                request_message.error_code = confirm_response.error_code;
+                request_message.error_message = confirm_response.error_message;
+                if (request_message.error_code != "00")
+                {
+                    operation_request.status = "FAILED";
+                    operation_request.confirm.note += " (" + request_message.error_message + ")";
+                }
+                Processing.Transaction.DataHelper.Save("operation_request", operation_request);
+            }
             return request_message;
         }
 
@@ -1036,47 +1095,138 @@ namespace eWallet.Business
             //}
             return request_message;
         }
+        private dynamic OperationConfirmTransaction(string type, dynamic tran_info)
+        {
+            dynamic request_message = new Data.DynamicObj();
+            if (type == "COMPLETED")
+            {
+                dynamic finance_transaction = new Data.DynamicObj();
+                finance_transaction._id = Guid.NewGuid().ToString();
+                finance_transaction.system = "core_transaction";
+                finance_transaction.module = "finance";
+                finance_transaction.function = "post_transaction";
+                finance_transaction.type = "two_way";
+                finance_transaction.request = new Data.DynamicObj();
+                finance_transaction.request.trans_id = tran_info._id;
+                finance_transaction.status = "NEW";
+                data.Insert("core_request", finance_transaction);
 
+                dynamic finance_transaction_result = Business.BusinessFactory.GetBusiness("finance").GetResponse(finance_transaction._id);
+                if (finance_transaction_result == null)
+                {
+                    request_message.error_code = "96";
+                    request_message.error_message = "System Error. Please try again late!";
+                }
+                else
+                {
+                    request_message.error_code = finance_transaction_result.error_code;
+                    request_message.error_message = finance_transaction_result.error_message;
+                }
+                tran_info.status = (request_message.error_code == "00") ? "COMPLETED" : "ERROR";
+            }
+            else
+            {
+                dynamic finance_transaction = new Data.DynamicObj();
+                finance_transaction._id = Guid.NewGuid().ToString();
+                finance_transaction.system = "core_transaction";
+                finance_transaction.module = "finance";
+                finance_transaction.function = "cancel_transaction";
+                finance_transaction.type = "two_way";
+                finance_transaction.request = new Data.DynamicObj();
+                finance_transaction.request.trans_id = tran_info._id;
+                finance_transaction.status = "NEW";
+                data.Insert("core_request", finance_transaction);
+
+                dynamic finance_transaction_result = Business.BusinessFactory.GetBusiness("finance").GetResponse(finance_transaction._id);
+                if (finance_transaction_result == null)
+                {
+                    request_message.error_code = "96";
+                    request_message.error_message = "System Error. Please try again late!";
+                }
+                else
+                {
+                    request_message.error_code = finance_transaction_result.error_code;
+                    request_message.error_message = finance_transaction_result.error_message;
+                }
+                tran_info.status = (request_message.error_code == "00") ? "CANCELED" : "ERROR";
+            }
+            
+            tran_info.error_message = request_message.error_message;
+            Processing.Transaction.DataHelper.Save("transactions", tran_info);
+            return request_message;
+        }
         private dynamic ConfirmTransaction(dynamic tran_info)
         {
             dynamic request_message = new Data.DynamicObj();
             //dynamic trans = Processing.Transaction.MakeTopup(request);
-            dynamic finance_transaction = new Data.DynamicObj();
-            finance_transaction._id = Guid.NewGuid().ToString();
-            finance_transaction.system = "core_transaction";
-            finance_transaction.module = "finance";
-            finance_transaction.function = "post_transaction";
-            finance_transaction.type = "two_way";
-            finance_transaction.request = new Data.DynamicObj();
-            finance_transaction.request.trans_id = tran_info._id;
-            finance_transaction.status = "NEW";
-            data.Insert("core_request", finance_transaction);
-
-            dynamic finance_transaction_result = Business.BusinessFactory.GetBusiness("finance").GetResponse(finance_transaction._id);
-            if (finance_transaction_result == null)
+            string trans_type = tran_info.transaction_type.ToString().ToLower();
+            dynamic confirm_type = new Data.DynamicObj();
+            bool is_need_confirm_type = false;
+            switch(trans_type)
             {
-                request_message.error_code = "96";
+                case "payment":
+                    confirm_type = ConfirmPayBill(tran_info);
+                    is_need_confirm_type = true;
+                    break;
+                default:
+                    break;
+            }
+            if(is_need_confirm_type && confirm_type.error_code != "00")
+            {
+                request_message.error_code = confirm_type.error_code;
                 request_message.error_message = "System Error. Please try again late!";
+                tran_info.status = "ERROR";
+                tran_info.error_message ="PAYMENT PROVIDER ERROR: " + request_message.error_message;
+                Processing.Transaction.DataHelper.Save("transactions", tran_info);
+                return request_message;
             }
-            else
-            {
-                request_message.error_code = finance_transaction_result.error_code;
-                request_message.error_message = finance_transaction_result.error_message;
-            }
-
-            tran_info.status = (request_message.error_code == "00") ? "COMPLETED" : "ERROR";
+            
 
             //Neu giao dich can ke toan thuc hien
             if (tran_info.payment_provider == "GNCA")
             {
+                tran_info.status = "PROCESSING";
                 dynamic gnc_finance_request = tran_info.detail;
                 gnc_finance_request._id = Guid.NewGuid().ToString();
                 gnc_finance_request.transaction_ref = tran_info._id;
                 gnc_finance_request.type = tran_info.transaction_type;
+                gnc_finance_request.profile = tran_info.created_by;
+                gnc_finance_request.channel = tran_info.channel;
+                gnc_finance_request.amount = tran_info.amount;
                 gnc_finance_request.status = "NEW";
-                Processing.Transaction.DataHelper.Save("gnc_finance_request", gnc_finance_request);
+                Processing.Transaction.DataHelper.Insert("operation_request", gnc_finance_request);
+
+                request_message.error_code = "00";
+                request_message.error_message = "Confirm transaction successful!";
             }
-            tran_info.error_message = request_message.error_message;
+            else
+            {
+                dynamic finance_transaction = new Data.DynamicObj();
+                finance_transaction._id = Guid.NewGuid().ToString();
+                finance_transaction.system = "core_transaction";
+                finance_transaction.module = "finance";
+                finance_transaction.function = "post_transaction";
+                finance_transaction.type = "two_way";
+                finance_transaction.request = new Data.DynamicObj();
+                finance_transaction.request.trans_id = tran_info._id;
+                finance_transaction.status = "NEW";
+                data.Insert("core_request", finance_transaction);
+
+                dynamic finance_transaction_result = Business.BusinessFactory.GetBusiness("finance").GetResponse(finance_transaction._id);
+                if (finance_transaction_result == null)
+                {
+                    request_message.error_code = "96";
+                    request_message.error_message = "System Error. Please try again late!";
+                }
+                else
+                {
+                    request_message.error_code = finance_transaction_result.error_code;
+                    request_message.error_message = finance_transaction_result.error_message;
+                }
+
+                tran_info.status = (request_message.error_code == "00") ? "COMPLETED" : "ERROR";
+                tran_info.error_message = request_message.error_message;
+            }
             Processing.Transaction.DataHelper.Save("transactions", tran_info);
             return request_message;
         }
