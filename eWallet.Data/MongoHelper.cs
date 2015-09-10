@@ -150,7 +150,7 @@ namespace eWallet.Data
             return SaveDocument(objectName, dyna.ToBsonDocument());
         }
 
-        //test
+        
         public bool SaveUpdate(string objectName, DynamicObj obj)
         {
             dynamic dyna = obj;
