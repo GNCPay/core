@@ -21,3 +21,4 @@ C:\Data\Working\Source Codes\core\eWallet.Common\bin\Debug\eWallet.Common.dll
 C:\Data\Working\Source Codes\core\eWallet.Common\bin\Debug\eWallet.Common.pdb
 C:\Data\Working\Source Codes\core\eWallet.Common\obj\Debug\eWallet.Common.dll
 C:\Data\Working\Source Codes\core\eWallet.Common\obj\Debug\eWallet.Common.pdb
+C:\Users\Home\Documents\GitHub\core\eWallet.Common\obj\Debug\eWallet.Common.csprojResolveAssemblyReference.cache
