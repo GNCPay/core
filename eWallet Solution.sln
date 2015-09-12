@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Common", "eWallet.Common\eWallet.Common.csproj", "{26BE5CF6-0772-46D2-9CE2-885F3971D01E}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.CoreHosting", "eWallet.CoreHosting\eWallet.CoreHosting.csproj", "{AF457871-2C79-4625-95D2-2A21980C5EEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Partner", "eWallet.Partner\eWallet.Partner.csproj", "{02EFE69E-BADB-427B-BD82-5378F4B60AE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWallet.Topup", "eWallet.Topup\eWallet.Topup.csproj", "{3B302561-53A9-4463-ADBA-C5AC902A32DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{02EFE69E-BADB-427B-BD82-5378F4B60AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02EFE69E-BADB-427B-BD82-5378F4B60AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02EFE69E-BADB-427B-BD82-5378F4B60AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B302561-53A9-4463-ADBA-C5AC902A32DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B302561-53A9-4463-ADBA-C5AC902A32DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B302561-53A9-4463-ADBA-C5AC902A32DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B302561-53A9-4463-ADBA-C5AC902A32DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

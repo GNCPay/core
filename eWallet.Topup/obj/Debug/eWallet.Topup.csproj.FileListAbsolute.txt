@@ -1,0 +1,12 @@
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\eWallet.Topup.dll.config
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\eWallet.Topup.dll
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\eWallet.Topup.pdb
+C:\Data\Working\Source Codes\core\eWallet.Topup\obj\Debug\eWallet.Topup.csprojResolveAssemblyReference.cache
+C:\Data\Working\Source Codes\core\eWallet.Topup\obj\Debug\eWallet.Topup.dll
+C:\Data\Working\Source Codes\core\eWallet.Topup\obj\Debug\eWallet.Topup.pdb
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\eWallet.Data.dll
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\MongoDB.Bson.dll
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\MongoDB.Driver.dll
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\Newtonsoft.Json.dll
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\eWallet.Data.pdb
+C:\Data\Working\Source Codes\core\eWallet.Topup\bin\Debug\Newtonsoft.Json.xml
