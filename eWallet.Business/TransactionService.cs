@@ -1171,12 +1171,21 @@ namespace eWallet.Business
                 default:
                     break;
             }
-            if(is_need_confirm_type && confirm_type.error_code != "00")
+            //switch (trans_type)
+            //{
+            //    case "topup":
+            //        confirm_type = ConfirmTopup(tran_info);
+            //        is_need_confirm_type = true;
+            //        break;
+            //    default:
+            //        break;
+            //}
+            if (is_need_confirm_type && confirm_type.error_code != "00")
             {
                 request_message.error_code = confirm_type.error_code;
                 request_message.error_message = "System Error. Please try again late!";
                 tran_info.status = "ERROR";
-                tran_info.error_message ="PAYMENT PROVIDER ERROR: " + request_message.error_message;
+                tran_info.error_message ="SERVICE PROVIDER ERROR: " + request_message.error_message;
                 Processing.Transaction.DataHelper.Save("transactions", tran_info);
                 return request_message;
             }

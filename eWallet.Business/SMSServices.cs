@@ -49,8 +49,36 @@ namespace eWallet.Business
 
         private dynamic Send(dynamic request_message)
         {
-            dynamic sms = request_message.request;
-            return null;
+            try
+            {
+                dynamic mt = new Data.DynamicObj();
+                mt = request_message.request;
+                mt.request_id = data.GetNextSquence("sms_mt_" + DateTime.Today.ToString("yyyyMMdd"));
+                mt.message_order = 1;
+                mt.status = "NEW";
+
+                Processing.SMS.DataHelper.Save("sms_mt_message", mt);
+                HttpWebResponse result = SendSMS(mt.request_id, mt.receiver, mt.message_order, mt.message_content);
+                if (result != null && result.StatusCode == HttpStatusCode.OK)
+                {
+                    mt.status = "DONE";
+                    request_message.error_code = "00";
+                    request_message.error_message = "Success";
+                }
+                else
+                {
+                    mt.status = "ERROR";
+                    request_message.error_code = "01";
+                    request_message.error_message = result.StatusDescription;
+                }
+                Processing.SMS.DataHelper.Save("sms_mt_message", mt);
+            }
+            catch
+            {
+                request_message.error_code = "96";
+                request_message.error_message = "The system has some error(s). Please try late!";
+            }
+            return request_message;
         }
 
         /// <summary>
@@ -223,6 +251,27 @@ namespace eWallet.Business
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            return null;
+        }
+        public static HttpWebResponse SendSMS(long request_id, string receiver, int message_order, string message_content)
+        {
+            try
+            {
+                string GATEWAY_URL = "http://115.84.179.243:6002/smsmt/gncpay?src=6173&dest={0}&mtseq={1}&msgtype=Text&msgtitle=&msgbody={2}&moseq={3}&procresult=1&mttotalseg=1&mtsegref=1&cpid=10002&serviceid=201&username=gncpay&password=gncpay@smsgwgncmedia";
+                GATEWAY_URL = string.Format(GATEWAY_URL,
+                    receiver, 
+                    request_id,
+                    message_content,
+                    message_order
+                    );
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(GATEWAY_URL);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                return response;
+            }
+            catch (Exception e)
+            {
+                
             }
             return null;
         }

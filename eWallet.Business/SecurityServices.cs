@@ -90,13 +90,13 @@ namespace eWallet.Business
                 send_sms.system = "core_security";
                 send_sms.module = "sms";
                 send_sms.type = "one_way";
-                send_sms.function = "mt";
+                send_sms.function = "send";
                 send_sms.request = new Data.DynamicObj();
-                send_sms.request._id = data.GetNextSquence("sms_mt_" + DateTime.Today.ToString("yyyyMMdd"));
-                send_sms.request.msisdn = Processing.Profile.Get(request_message.request.user_id.ToString()).mobile;
-                send_sms.request.mo_seq = 1;
-                send_sms.request.content = "MA XAC THUC GIAO DICH CUA BAN LA: " + request_message.response.otp;
-                send_sms.request.command_code = "GNCPAY";
+                
+                send_sms.request.receiver = Processing.Profile.Get(request_message.request.user_id.ToString()).mobile;
+                
+                send_sms.request.message_content = "MA XAC THUC GIAO DICH CUA BAN LA: " + request_message.response.otp;
+                send_sms.request.service_code = "GNCPAY";
                 send_sms.status = "NEW";
                 data.Insert("core_request", send_sms);
             }
