@@ -320,7 +320,7 @@ namespace eWallet.Business
                 string banknet_response = bankNet.SendOrder(
                     tran_info.service,
                     tran_info.bank_ref_id,
-                    request.payment_provider + "_" + tran_info.created_by,
+                    request.payment_provider + "_" + profile._id,
                     tran_info.amount.ToString(),
                     "0",
                     "0",
