@@ -397,6 +397,7 @@ namespace eWallet.Business
             dynamic tran_info = new Data.DynamicObj();
             tran_info.transaction_type = "PAYMENT";
             tran_info._id = Guid.NewGuid().ToString();// request.user_id
+            tran_info.request_id = request_message._id;
             tran_info.ref_id = request.product_code;
             tran_info.created_by = request.profile;
             tran_info.channel = request.channel.ToUpper();
@@ -427,6 +428,7 @@ namespace eWallet.Business
                     _url_return
                     );
                 string[] url_params = banknet_response.Split('|');
+                tran_info.service_provider_response = banknet_response;
                 if (url_params[0] == "010")
                 {
                     url_params[2] = url_params[2].Substring(0, int.Parse(url_params[1]));
