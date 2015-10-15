@@ -254,6 +254,7 @@ namespace eWallet.Business
             //dynamic confirm_result = ConfirmTopup(tran_info);
             response.url_redirect = "payment/confirm?transaction_type={0}&trans_id={1}&amount={2}";
             response.url_redirect = String.Format(response.url_redirect, tran_info.transaction_type, tran_info._id, tran_info.amount);
+            response.trans_id = tran_info._id;
             request_message.error_code = response_finance.error_code;
             request_message.error_message = response_finance.error_message;
             request_message.response = response;
@@ -358,6 +359,7 @@ namespace eWallet.Business
                 Processing.Transaction.DataHelper.Insert("transactions", tran_info);
                 response.url_redirect = "payment/confirm?transaction_type={0}&trans_id={1}&amount={2}";
                 response.url_redirect = String.Format(response.url_redirect, tran_info.transaction_type, tran_info._id, tran_info.amount);
+                response.trans_id = tran_info._id;
                 request_message.response = response;
             }
             //dynamic confirm_result = ConfirmTopup(tran_info);

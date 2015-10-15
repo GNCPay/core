@@ -38,6 +38,10 @@ namespace eWallet.Business
             _func = _func.ToLower();
             switch (_func)
             {
+                ///12/10/2015 - Bo sung get_balance of profile
+                case "get_balance":
+                    request_message = GetBalance(_func, request_message);
+                    break;
                 case "topup":
                     request_message = Authorization(_func, request_message);
                     break;
@@ -89,6 +93,18 @@ namespace eWallet.Business
 
             request_message.status = "PROCESSED";
             data.Save("core_request", request_message);
+
+            return request_message;
+        }
+
+        private dynamic GetBalance(string transaction_type, dynamic request_message)
+        {
+            dynamic request = request_message.request;
+            long id = long.Parse(String.Concat("1011", request.profile_id.ToString()));
+            request_message.response = data.Get("finance_account", Query.EQ("_id", id));
+            
+            request_message.error_code = "00";
+            request_message.error_message = "Query Success";
 
             return request_message;
         }

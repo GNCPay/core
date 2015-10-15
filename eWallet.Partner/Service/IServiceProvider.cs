@@ -19,6 +19,8 @@ namespace eWallet.Partner.Service
                     return new SENDO();
                 case "FPTS":
                     return new FPTS();
+                case "VINHOME":
+                    return new VINHOME();
                 default:
                     return null;
             }

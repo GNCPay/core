@@ -62,6 +62,7 @@
     <Compile Include="Service\FPTS.cs" />
     <Compile Include="Service\IServiceProvider.cs" />
     <Compile Include="Service\SENDO.cs" />
+    <Compile Include="Service\VINHOME.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
