@@ -70,3 +70,11 @@ C:\Data\Working\Source Codes\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHost
 C:\Data\Working\Source Codes\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csprojResolveAssemblyReference.cache
 C:\Data\Working\Source Codes\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.ProjectInstaller.resources
 C:\Data\Working\Source Codes\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csproj.GenerateResource.Cache
+C:\Data\Projects\eWallet\Core\eWallet.CoreHosting.exe.config
+C:\Data\Projects\BigPay\Sources\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.exe
+C:\Data\Projects\BigPay\Sources\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.pdb
+C:\Data\Projects\eWallet\Core\eWallet.CoreHosting.exe
+C:\Data\Projects\eWallet\Core\eWallet.CoreHosting.pdb
+C:\Data\Projects\BigPay\Sources\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csprojResolveAssemblyReference.cache
+C:\Data\Projects\BigPay\Sources\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.ProjectInstaller.resources
+C:\Data\Projects\BigPay\Sources\core\eWallet.CoreHosting\obj\Debug\eWallet.CoreHosting.csproj.GenerateResource.Cache

@@ -88,3 +88,21 @@ C:\Data\Working\Source Codes\core\eWallet.SMS\obj\Debug\eWallet.SMS.ProjectInsta
 C:\Data\Working\Source Codes\core\eWallet.SMS\obj\Debug\eWallet.Notification.csproj.GenerateResource.Cache
 C:\Data\Working\Source Codes\core\eWallet.SMS\obj\Debug\eWallet.Notification.dll
 C:\Data\Working\Source Codes\core\eWallet.SMS\obj\Debug\eWallet.Notification.pdb
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\eWallet.Notification.dll.config
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\eWallet.Notification.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\eWallet.Notification.pdb
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\eWallet.Common.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\eWallet.Data.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\MongoDB.Bson.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\MongoDB.Driver.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\Newtonsoft.Json.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\eWallet.Common.pdb
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\eWallet.Data.pdb
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\MongoDB.Bson.xml
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\MongoDB.Driver.xml
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\bin\Debug\Newtonsoft.Json.xml
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\obj\Debug\eWallet.Notification.csprojResolveAssemblyReference.cache
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\obj\Debug\eWallet.SMS.ProjectInstaller.resources
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\obj\Debug\eWallet.Notification.csproj.GenerateResource.Cache
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\obj\Debug\eWallet.Notification.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.SMS\obj\Debug\eWallet.Notification.pdb

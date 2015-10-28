@@ -46,3 +46,15 @@ C:\Data\Working\Source Codes\core\eWallet.Data\bin\Debug\Newtonsoft.Json.xml
 C:\Data\Working\Source Codes\core\eWallet.Data\obj\Debug\eWallet.Data.csprojResolveAssemblyReference.cache
 C:\Data\Working\Source Codes\core\eWallet.Data\obj\Debug\eWallet.Data.dll
 C:\Data\Working\Source Codes\core\eWallet.Data\obj\Debug\eWallet.Data.pdb
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\eWallet.Data.dll.config
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\eWallet.Data.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\eWallet.Data.pdb
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\MongoDB.Bson.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\MongoDB.Driver.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\Newtonsoft.Json.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\MongoDB.Bson.xml
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\MongoDB.Driver.xml
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\bin\Debug\Newtonsoft.Json.xml
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\obj\Debug\eWallet.Data.csprojResolveAssemblyReference.cache
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\obj\Debug\eWallet.Data.dll
+C:\Data\Projects\BigPay\Sources\core\eWallet.Data\obj\Debug\eWallet.Data.pdb

@@ -141,7 +141,7 @@ namespace eWallet.Business
                 _detail._id = Guid.NewGuid().ToString();
                 _detail.parent = request._id;
                 _detail.account = long.Parse(String.Format(trx.account, request.profiles));
-                _detail.amount = (trx.amount_type == "P") ? request.amount * trx.amount / 100 : trx.amount;
+                _detail.amount = (trx.amount_type == "P") ? (long)request.amount * (long)trx.amount / 100 : (long)trx.amount;
                 _detail.note = trx.note;
                 _detail.status = "AUTHORIZED";
                 long _balance = -1;
